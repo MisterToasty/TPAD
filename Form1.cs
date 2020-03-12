@@ -4,6 +4,8 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Security.Cryptography;
+using System.Text;
 using System.Windows.Forms;
 
 namespace TPAD
@@ -47,6 +49,14 @@ namespace TPAD
         public string[] nekolovechoices = new string[] { "nekolewd", "neko", "kitsune", "hug", "pat", "waifu", "cry", "kiss" };
         public string[] oboobschoices = new string[] { "default" };
         public string[] previmg = new string[] { };
+
+        private string GetHash(string path)
+        {
+            using (var fileStream = new FileStream(path, FileMode.Open, FileAccess.Read))
+            {
+                return Encoding.UTF8.GetString(new SHA1Managed().ComputeHash(fileStream));
+            }
+        }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -212,6 +222,28 @@ namespace TPAD
             timer1.Tick += new EventHandler(timer1_Tick);
             timer1.Interval = 500;
             timer1.Start();
+        }
+
+        private void removeDupes_Click(object sender, EventArgs e)
+        {
+            rootPath = Directory.GetCurrentDirectory();
+            rootPath += "\\images\\";
+            rootPath += siteChoice.Text;
+            rootPath += "\\";
+            rootPath += choices.Text;
+            rootPath = rootPath.ToString();
+            Directory.GetFiles(rootPath)
+            .Select(
+            f => new
+            {
+                FileName = f,
+                FileHash = GetHash(f)
+            })
+            .GroupBy(f => f.FileHash)
+            .Select(g => new { FileHash = g.Key, Files = g.Select(z => z.FileName).ToList() })
+            .SelectMany(f => f.Files.Skip(1))
+            .ToList()
+            .ForEach(File.Delete);
         }
 
         private void smdButton_Click(object sender, EventArgs e)

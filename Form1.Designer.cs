@@ -38,6 +38,7 @@
             this.dniButton = new System.Windows.Forms.Button();
             this.smdButton = new System.Windows.Forms.Button();
             this.prevImgButton = new System.Windows.Forms.Button();
+            this.removeDupes = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -144,12 +145,26 @@
             this.prevImgButton.UseVisualStyleBackColor = true;
             this.prevImgButton.Click += new System.EventHandler(this.prevImgButton_Click);
             // 
+            // removeDupes
+            // 
+            this.removeDupes.FlatAppearance.BorderSize = 0;
+            this.removeDupes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.removeDupes.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.removeDupes.Location = new System.Drawing.Point(697, 386);
+            this.removeDupes.Name = "removeDupes";
+            this.removeDupes.Size = new System.Drawing.Size(91, 23);
+            this.removeDupes.TabIndex = 8;
+            this.removeDupes.Text = "Remove Dupes";
+            this.removeDupes.UseVisualStyleBackColor = true;
+            this.removeDupes.Click += new System.EventHandler(this.removeDupes_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(50)))));
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.removeDupes);
             this.Controls.Add(this.prevImgButton);
             this.Controls.Add(this.smdButton);
             this.Controls.Add(this.dniButton);
@@ -179,6 +194,7 @@
         private System.Windows.Forms.Button dniButton;
         private System.Windows.Forms.Button smdButton;
         private System.Windows.Forms.Button prevImgButton;
+        private System.Windows.Forms.Button removeDupes;
     }
 }
 
